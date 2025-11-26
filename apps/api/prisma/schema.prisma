@@ -7,6 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  // @prisma-ignore
   url      = env("DATABASE_URL")
 }
 
@@ -30,11 +31,14 @@ model Card {
   id             String   @id @default(cuid())
   intakeBatchId  String?
   sellerId       String
-  setName        String
-  playerName     String
-  teamName       String?
-  cardNumber     String?
-  parallel       String   @default("base") // base, holo, refractor, etc.
+  category       String   // MVP: basketball, football, baseball | Future: pokemon, magic, yugioh
+  setName        String   // Card set/series name
+  playerName     String   // Player name (sports) or Character name (TCG)
+  teamName       String?  // Team (sports) or Type/Attribute (TCG) - optional
+  cardNumber     String?  // Card number in set (e.g., "236")
+  parallel       String   @default("base") // base, holo, refractor, prizm, etc.
+  serialNumber   Int?     // Serial number for numbered cards (e.g., 25 in "25/99")
+  serialTotal    Int?     // Total print run (e.g., 99 in "25/99") - null for unnumbered
   condition      String   @default("near-mint") // mint, near-mint, lightly-played, etc.
   priceCents     Int // Price in cents (e.g., 150 = $1.50)
   frontImageUrl  String?
@@ -50,6 +54,7 @@ model Card {
 
   @@index([sellerId])
   @@index([status])
+  @@index([category])
   @@index([slotLocation])
   @@index([playerName])
   @@index([setName])

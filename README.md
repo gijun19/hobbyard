@@ -1,6 +1,8 @@
 # Hobbyard
 
-A low-end trading card marketplace focused on fast intake, simple selling, and efficient shipping.
+A low-end **sports card** marketplace focused on fast intake, simple selling, and efficient shipping.
+
+**MVP Focus:** Basketball, Football, and Baseball cards only
 
 ## Quick Start
 

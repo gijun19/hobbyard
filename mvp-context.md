@@ -10,6 +10,32 @@ simple selling, and efficient shipping. The goal is to offer a
 lightweight alternative to platforms like COMC with an emphasis on
 $1–$10 cards and batch shipping through Buyer Boxes.
 
+Hobbyard’s MVP launches with a sports-only card focus. This keeps
+intake, metadata, pricing, and marketplace filtering consistent while
+the operational workflows are being refined.
+
+Initial supported categories:
+
+Basketball
+
+Football
+
+Baseball
+
+Reasoning:
+
+Sports cards have more predictable metadata (player, team, set, parallel).
+
+Pricing ranges for low-end sports singles align well with our Buyer Box model.
+
+Intake and storage conventions are easier to standardize before expanding to TCG.
+
+Reduces system complexity while we validate marketplace behavior and
+shipping workflows.
+
+Once the core loop is stable, support for TCG categories can be added
+incrementally without altering the underlying architecture.
+
 ## Core Concepts
 
 ### Intake Batches

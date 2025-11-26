@@ -12,7 +12,12 @@
       "Bash(pnpm --filter @hobbyard/api db:migrate:*)",
       "Bash(docker inspect:*)",
       "Bash(docker-compose down:*)",
-      "Bash(pnpm --filter @hobbyard/api db:push:*)"
+      "Bash(pnpm --filter @hobbyard/api db:push:*)",
+      "Bash(pnpm --filter @hobbyard/api build:*)",
+      "Bash(pnpm:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(curl http://localhost:3000)"
     ],
     "deny": [],
     "ask": []

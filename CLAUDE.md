@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hobbyard is a low-end trading card marketplace focused on fast intake, simple selling, and efficient shipping. It's designed as a lightweight alternative to platforms like COMC with an emphasis on $1–$10 cards and batch shipping through Buyer Boxes.
+Hobbyard is a low-end **sports card** marketplace focused on fast intake, simple selling, and efficient shipping. It's designed as a lightweight alternative to platforms like COMC with an emphasis on $1–$10 cards and batch shipping through Buyer Boxes.
+
+**MVP Launch Focus:** Sports cards only (Basketball, Football, Baseball)
+- Sports cards have predictable metadata (player, team, set, parallel)
+- Pricing ranges align well with the Buyer Box model
+- Easier to standardize intake and storage before expanding to TCG
+- Once stable, TCG support can be added incrementally
 
 ## Core Business Concepts
 

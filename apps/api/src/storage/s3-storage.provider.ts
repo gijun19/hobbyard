@@ -19,12 +19,12 @@ export class S3StorageProvider implements StorageProvider {
     this.s3Client = new S3Client({
       region,
       credentials: {
-        accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY'),
+        accessKeyId: this.configService.get('AWS_ACCESS_KEY_ID') ?? "",
+        secretAccessKey: this.configService.get('AWS_SECRET_ACCESS_KEY') ?? "",
       },
     });
 
-    this.bucketName = this.configService.get('AWS_S3_BUCKET');
+    this.bucketName = this.configService.get('AWS_S3_BUCKET') ?? "";
   }
 
   async uploadFile(file: Express.Multer.File, key: string): Promise<string> {
