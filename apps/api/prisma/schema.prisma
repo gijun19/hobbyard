@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Intake batches from sellers
+model IntakeBatch {
+  id        String   @id @default(cuid())
+  sellerId  String
+  status    String   @default("pending") // pending, received, processing, completed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cards Card[]
+
+  @@index([sellerId])
+  @@index([status])
+  @@map("intake_batches")
+}
+
+// Core inventory model
+model Card {
+  id             String   @id @default(cuid())
+  intakeBatchId  String?
+  sellerId       String
+  setName        String
+  playerName     String
+  teamName       String?
+  cardNumber     String?
+  parallel       String   @default("base") // base, holo, refractor, etc.
+  condition      String   @default("near-mint") // mint, near-mint, lightly-played, etc.
+  priceCents     Int // Price in cents (e.g., 150 = $1.50)
+  frontImageUrl  String?
+  backImageUrl   String?
+  slotLocation   String? // Physical storage location (e.g., "A-12-3")
+  status         String   @default("active") // active, reserved, sold
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  intakeBatch   IntakeBatch?   @relation(fields: [intakeBatchId], references: [id], onDelete: SetNull)
+  buyerBoxItems BuyerBoxItem[]
+  orderItems    OrderItem[]
+
+  @@index([sellerId])
+  @@index([status])
+  @@index([slotLocation])
+  @@index([playerName])
+  @@index([setName])
+  @@map("cards")
+}
+
+// Buyer's shopping cart
+model BuyerBox {
+  id        String   @id @default(cuid())
+  buyerId   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items BuyerBoxItem[]
+
+  @@index([buyerId])
+  @@map("buyer_boxes")
+}
+
+// Items in a buyer's box
+model BuyerBoxItem {
+  id         String   @id @default(cuid())
+  buyerBoxId String
+  cardId     String
+  addedAt    DateTime @default(now())
+
+  buyerBox BuyerBox @relation(fields: [buyerBoxId], references: [id], onDelete: Cascade)
+  card     Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@unique([buyerBoxId, cardId])
+  @@index([buyerBoxId])
+  @@index([cardId])
+  @@map("buyer_box_items")
+}
+
+// Orders (completed purchases)
+model Order {
+  id        String   @id @default(cuid())
+  buyerId   String
+  status    String   @default("pending") // pending, shipped, completed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items OrderItem[]
+
+  @@index([buyerId])
+  @@index([status])
+  @@map("orders")
+}
+
+// Items in an order
+model OrderItem {
+  id      String   @id @default(cuid())
+  orderId String
+  cardId  String
+  addedAt DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  card  Card  @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@unique([orderId, cardId])
+  @@index([orderId])
+  @@index([cardId])
+  @@map("order_items")
+}

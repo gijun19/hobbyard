@@ -1,0 +1,15 @@
+# Uploaded files (keep directory structure only)
+uploads/**/*
+!uploads/.gitkeep
+!uploads/cards/
+!uploads/cards/.gitkeep
+
+# Environment
+.env
+
+# Build
+dist/
+node_modules/
+
+# Prisma
+prisma/migrations/*.migration_lock.toml

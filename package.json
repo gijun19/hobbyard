@@ -1,0 +1,21 @@
+{
+  "name": "@hobbyard/monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hobbyard trading card marketplace",
+  "scripts": {
+    "dev:api": "pnpm --filter @hobbyard/api dev",
+    "dev:web": "pnpm --filter @hobbyard/web dev",
+    "build:api": "pnpm --filter @hobbyard/api build",
+    "build:web": "pnpm --filter @hobbyard/web build",
+    "db:studio": "pnpm --filter @hobbyard/api db:studio",
+    "db:migrate": "pnpm --filter @hobbyard/api db:migrate",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
